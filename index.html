@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haldi — Indian Lunch, Done Right. Helsinki.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #D4900D;
+    --gold-light: #F5B93A;
+    --gold-pale: #FDF3E3;
+    --green: #1A3C34;
+    --green-light: #2A5C50;
+    --green-pale: #EAF2F0;
+    --white: #FFFFFF;
+    --off-white: #FAFAF8;
+    --text: #1C1C1C;
+    --text-muted: #5A5A5A;
+    --border: #E8E0D4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--off-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    line-height: 1.2;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(26, 60, 52, 0.97);
+    backdrop-filter: blur(8px);
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    border-bottom: 1px solid rgba(212, 144, 13, 0.3);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-logo span {
+    color: var(--white);
+    font-weight: 400;
+    font-size: 0.75rem;
+    display: block;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: -4px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold-light); }
+
+  .nav-cta {
+    background: var(--gold) !important;
+    color: var(--white) !important;
+    padding: 0.5rem 1.25rem !important;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 64px;
+  }
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(212, 144, 13, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(212, 144, 13, 0.06) 0%, transparent 40%),
+      radial-gradient(circle at 60% 80%, rgba(255,255,255,0.03) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  .hero-mandala {
+    position: absolute;
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 600px;
+    height: 600px;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(212, 144, 13, 0.15);
+    border: 1px solid rgba(212, 144, 13, 0.4);
+    color: var(--gold-light);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-badge::before { content: '📍'; font-size: 0.9rem; }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+  }
+
+  .hero h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .hero-tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    max-width: 500px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.2s, transform 0.15s;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.07);
+  }
+
+  .hero-trust-row {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
+  .hero-trust-item .check {
+    color: var(--gold-light);
+    font-size: 1rem;
+  }
+
+  /* Hero Visual */
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+  }
+
+  .dish-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(212, 144, 13, 0.25);
+    border-radius: 16px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .dish-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .dish-card-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+
+  .dish-card-date {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .dish-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .dish-item:last-child { border-bottom: none; }
+
+  .dish-emoji { font-size: 1.4rem; }
+
+  .dish-info { flex: 1; }
+
+  .dish-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .dish-origin {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 1px;
+  }
+
+  .dish-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(26, 60, 52, 0.8);
+    color: var(--gold-light);
+    border: 1px solid rgba(212, 144, 13, 0.3);
+  }
+
+  .dish-tag.veg {
+    background: rgba(40, 100, 60, 0.5);
+    color: #7DD87A;
+    border-color: rgba(125, 216, 122, 0.3);
+  }
+
+  .price-pill {
+    background: var(--gold);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 360px;
+    width: 100%;
+  }
+
+  .price-pill-text { font-size: 0.85rem; font-weight: 600; }
+
+  .price-pill-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .payment-badges {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 360px;
+    width: 100%;
+  }
+
+  .payment-badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    flex: 1;
+    text-align: center;
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 6rem 5%; }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .section-title {
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+    color: var(--green);
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    line-height: 1.75;
+  }
+
+  /* ─── WHY HALDI ─── */
+  .why-section {
+    background: var(--white);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .why-card {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .why-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .why-card:hover {
+    box-shadow: 0 8px 32px rgba(26, 60, 52, 0.1);
+    transform: translateY(-3px);
+  }
+
+  .why-card:hover::before { opacity: 1; }
+
+  .why-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .why-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--green);
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+  }
+
+  .why-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ─── DIFFERENTIATOR / COMPARE ─── */
+  .diff-section {
+    background: var(--green);
+    color: var(--white);
+  }
+
+  .diff-section .section-title {
+    color: var(--white);
+  }
+
+  .diff-section .section-sub {
+    color: rgba(255,255,255,0.65);
+  }
+
+  .diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+
+  .diff-col {
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  .diff-col.theirs {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .diff-col.ours {
+    background: rgba(212, 144, 13, 0.12);
+    border: 1px solid rgba(212, 144, 13, 0.35);
+  }
+
+  .diff-col-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .diff-col.ours .diff-col-title {
+    color: var(--gold-light);
+    border-bottom-color: rgba(212, 144, 13, 0.3);
+  }
+
+  .diff-col.theirs .diff-col-title {
+    color: rgba(255,255,255,0.5);
+  }
+
+  .diff-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .diff-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+
+  .diff-col.ours .diff-text { color: rgba(255,255,255,0.85); }
+  .diff-col.theirs .diff-text { color: rgba(255,255,255,0.45); }
+
+  /* ─── MENU PREVIEW ─── */
+  .menu-section {
+    background: var(--gold-pale);
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .menu-day {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+
+  .menu-day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--gold-pale);
+  }
+
+  .menu-day-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  .menu-day-region {
+    font-size: 0.7rem;
+    background: var(--green-pale);
+    color: var(--green);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .menu-dish {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0;
+    font-size: 0.875rem;
+  }
+
+  .menu-dish-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .menu-dish-dot.veg { background: #5AAD5A; }
+
+  .menu-dish-name { color: var(--text); flex: 1; }
+
+  .menu-dish-v {
+    font-size: 0.65rem;
+    color: #5AAD5A;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    background: rgba(90, 173, 90, 0.1);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+  }
+
+  .menu-note {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .how-section {
+    background: var(--white);
+  }
+
+  .steps-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+    position: relative;
+  }
+
+  .steps-row::before {
+    content: '';
+    position: absolute;
+    top: 2.25rem;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold), transparent);
+    opacity: 0.3;
+  }
+
+  .step {
+    text-align: center;
+    padding: 0 0.5rem;
+  }
+
+  .step-num {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--white);
+    font-weight: 800;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 16px rgba(212, 144, 13, 0.35);
+  }
+
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--green);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  /* ─── MEAL BENEFITS ─── */
+  .benefits-section {
+    background: var(--green);
+    padding: 4rem 5%;
+    text-align: center;
+  }
+
+  .benefits-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .benefits-section .section-title { color: var(--white); }
+  .benefits-section .section-sub { color: rgba(255,255,255,0.65); margin: 0 auto; }
+
+  .benefit-cards {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+
+  .benefit-card {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(212, 144, 13, 0.4);
+    border-radius: 12px;
+    padding: 1.25rem 1.75rem;
+    min-width: 160px;
+  }
+
+  .benefit-card-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--gold-light);
+    margin-bottom: 0.25rem;
+  }
+
+  .benefit-card-note {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* ─── FAQ ─── */
+  .faq-section {
+    background: var(--off-white);
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .faq-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .faq-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--green);
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .faq-a {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ─── EARLY ACCESS / CTA ─── */
+  .cta-section {
+    background: var(--gold-pale);
+    text-align: center;
+    padding: 6rem 5%;
+  }
+
+  .cta-inner {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .cta-section .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1rem;
+  }
+
+  .cta-section p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.75;
+  }
+
+  .email-form {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 460px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  .email-form input[type="email"] {
+    flex: 1;
+    min-width: 220px;
+    padding: 0.85rem 1.25rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .email-form input[type="email"]:focus { border-color: var(--gold); }
+
+  .email-form button {
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .email-form button:hover {
+    background: var(--green-light);
+    transform: translateY(-1px);
+  }
+
+  .cta-note {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--green);
+    color: rgba(255,255,255,0.55);
+    padding: 3rem 5%;
+    font-size: 0.85rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-tagline {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold-light); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-bottom a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
+  .footer-bottom a:hover { text-decoration: underline; }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding: 3rem 5%;
+    }
+
+    .hero-visual {
+      align-items: stretch;
+    }
+
+    .dish-card, .price-pill, .payment-badges {
+      max-width: 100%;
+    }
+
+    .why-grid { grid-template-columns: 1fr 1fr; }
+
+    .diff-grid { grid-template-columns: 1fr; }
+
+    .menu-grid { grid-template-columns: 1fr; }
+
+    .steps-row {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .steps-row::before { display: none; }
+
+    .faq-grid { grid-template-columns: 1fr; }
+
+    .footer-inner { flex-direction: column; }
+  }
+
+  @media (max-width: 600px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .steps-row { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; }
+    .hero-trust-row { gap: 1rem; }
+    .benefit-card { min-width: 130px; }
+  }
+
+  /* ─── DECORATIVE ─── */
+  .spice-divider {
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.5rem;
+    opacity: 0.4;
+    letter-spacing: 0.5rem;
+  }
+
+  .highlight-text {
+    color: var(--gold);
+  }
+
+  .green-text {
+    color: var(--green);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    Haldi
+    <span>Helsinki · Indian Lunch</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#why">Why Haldi</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#notify" class="nav-cta">Get notified</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+
+  <!-- Decorative mandala SVG -->
+  <svg class="hero-mandala" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="200" cy="200" r="190" stroke="#D4900D" stroke-width="1"/>
+    <circle cx="200" cy="200" r="150" stroke="#D4900D" stroke-width="1"/>
+    <circle cx="200" cy="200" r="110" stroke="#D4900D" stroke-width="1"/>
+    <circle cx="200" cy="200" r="70" stroke="#D4900D" stroke-width="1"/>
+    <circle cx="200" cy="200" r="30" stroke="#D4900D" stroke-width="1"/>
+    <line x1="200" y1="10" x2="200" y2="390" stroke="#D4900D" stroke-width="0.5"/>
+    <line x1="10" y1="200" x2="390" y2="200" stroke="#D4900D" stroke-width="0.5"/>
+    <line x1="65" y1="65" x2="335" y2="335" stroke="#D4900D" stroke-width="0.5"/>
+    <line x1="335" y1="65" x2="65" y2="335" stroke="#D4900D" stroke-width="0.5"/>
+    <line x1="200" y1="10" x2="335" y2="65" stroke="#D4900D" stroke-width="0.3"/>
+    <line x1="335" y1="65" x2="390" y2="200" stroke="#D4900D" stroke-width="0.3"/>
+    <line x1="390" y1="200" x2="335" y2="335" stroke="#D4900D" stroke-width="0.3"/>
+    <line x1="335" y1="335" x2="200" y2="390" stroke="#D4900D" stroke-width="0.3"/>
+    <line x1="200" y1="390" x2="65" y2="335" stroke="#D4900D" stroke-width="0.3"/>
+    <line x1="65" y1="335" x2="10" y2="200" stroke="#D4900D" stroke-width="0.3"/>
+    <line x1="10" y1="200" x2="65" y2="65" stroke="#D4900D" stroke-width="0.3"/>
+    <line x1="65" y1="65" x2="200" y2="10" stroke="#D4900D" stroke-width="0.3"/>
+  </svg>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">Now opening in Helsinki</div>
+      <h1>Indian lunch,<br><em>done right.</em></h1>
+      <p class="hero-tagline">Fresh. Fast. Flavourful. Every single day.</p>
+      <p class="hero-desc">Haldi is a modern Indian lunch restaurant in Helsinki — inspired by regional Indian recipes, made entirely from scratch with freshly ground spices. Outstanding flavour at standard lounas prices. This is the Indian lunch Helsinki has been waiting for.</p>
+      <div class="hero-actions">
+        <a href="#notify" class="btn-primary">🍛 Get notified when we open</a>
+        <a href="#menu" class="btn-secondary">See the menu →</a>
+      </div>
+      <div class="hero-trust-row">
+        <div class="hero-trust-item"><span class="check">✓</span> €11–€14 lounas prices</div>
+        <div class="hero-trust-item"><span class="check">✓</span> Edenred & ePassi accepted</div>
+        <div class="hero-trust-item"><span class="check">✓</span> Vegetarian-friendly</div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="dish-card">
+        <div class="dish-card-header">
+          <span class="dish-card-label">🗓 Today's Menu</span>
+          <span class="dish-card-date">Rotating daily</span>
+        </div>
+        <div class="dish-item">
+          <span class="dish-emoji">🍛</span>
+          <div class="dish-info">
+            <div class="dish-name">Chettinad Chicken Curry</div>
+            <div class="dish-origin">Tamil Nadu · South India</div>
+          </div>
+        </div>
+        <div class="dish-item">
+          <span class="dish-emoji">🫘</span>
+          <div class="dish-info">
+            <div class="dish-name">Dal Makhani</div>
+            <div class="dish-origin">Punjab · North India</div>
+          </div>
+          <span class="dish-tag veg">VEG</span>
+        </div>
+        <div class="dish-item">
+          <span class="dish-emoji">🥬</span>
+          <div class="dish-info">
+            <div class="dish-name">Saag Aloo</div>
+            <div class="dish-origin">Seasonal greens &amp; potato</div>
+          </div>
+          <span class="dish-tag veg">VEG</span>
+        </div>
+        <div class="dish-item">
+          <span class="dish-emoji">🫓</span>
+          <div class="dish-info">
+            <div class="dish-name">Garlic Naan + Basmati</div>
+            <div class="dish-origin">Freshly made in-house</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="price-pill">
+        <span class="price-pill-text">Full lunch from</span>
+        <span class="price-pill-amount">€11 – €14</span>
+      </div>
+
+      <div class="payment-badges">
+        <div class="payment-badge">Edenred ✓</div>
+        <div class="payment-badge">ePassi ✓</div>
+        <div class="payment-badge">Card / Cash ✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY HALDI -->
+<section class="why-section" id="why">
+  <div class="section-inner">
+    <span class="section-label">Why Haldi</span>
+    <h2 class="section-title">Not just another lunch spot.<br>A completely different standard.</h2>
+    <p class="section-sub">Every decision at Haldi — from spice sourcing to plate design — is made in service of one goal: the best lunch you'll eat this week.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🍛</span>
+        <div class="why-title">Daily Rotating Menu</div>
+        <p class="why-desc">A fresh, curated lunch menu that changes daily, drawing from diverse Indian regional cuisines — never boring, always surprising. From Chettinad to Kashmiri, from Gujarat to Bengal.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">💳</span>
+        <div class="why-title">Lounas-Priced Excellence</div>
+        <p class="why-desc">Outstanding Indian food at standard Helsinki lunch prices (€11–€14), fully compatible with Edenred, ePassi, and other meal benefit cards. No premium for quality here.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🫚</span>
+        <div class="why-title">Fresh-Ground, From Scratch</div>
+        <p class="why-desc">Every spice blend is ground in-house each morning. Every sauce made from scratch daily. No shortcuts, no pre-made pastes, no shortcuts. You'll taste the difference from the first bite.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">⚡</span>
+        <div class="why-title">Fast &amp; Streamlined Service</div>
+        <p class="why-desc">Designed specifically for the lunch rush — order, pay, and be eating within 5 minutes. Pre-order via app for zero wait time. Your lunch break is short. We respect that.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🌿</span>
+        <div class="why-title">Veggie-Forward Options</div>
+        <p class="why-desc">At least half the menu is vegetarian or vegan every single day, celebrating India's incredible plant-based culinary tradition. Healthy, hearty, and utterly full of flavour.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">✨</span>
+        <div class="why-title">Modern Indian Aesthetic</div>
+        <p class="why-desc">A clean, Nordic-meets-Indian dining space — warm wood, saffron accents, natural light. No tired clichés. Just a genuinely beautiful place to eat an excellent lunch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATOR -->
+<section class="diff-section">
+  <div class="section-inner">
+    <span class="section-label" style="color: var(--gold-light);">The Haldi difference</span>
+    <h2 class="section-title">Helsinki deserves better than the usual lunch buffet.</h2>
+    <p class="section-sub">Most Indian food in Helsinki is built for convenience, not flavour. Haldi is built for people who eat lunch every working day and refuse to settle.</p>
+
+    <div class="diff-grid">
+      <div class="diff-col theirs">
+        <div class="diff-col-title">The typical Indian lunch buffet</div>
+        <div class="diff-point">
+          <span class="diff-icon">✗</span>
+          <span class="diff-text">Same 8 dishes sitting under heat lamps since 10am</span>
+        </div>
+        <div class="diff-point">
+          <span class="diff-icon">✗</span>
+          <span class="diff-text">Spices from pre-made commercial pastes and powders</span>
+        </div>
+        <div class="diff-point">
+          <span class="diff-icon">✗</span>
+          <span class="diff-text">Heavy, oil-saturated dishes designed for portion volume, not flavour</span>
+        </div>
+        <div class="diff-point">
+          <span class="diff-icon">✗</span>
+          <span class="diff-text">Same menu, every single day, all year</span>
+        </div>
+        <div class="diff-point">
+          <span class="diff-icon">✗</span>
+          <span class="diff-text">Tired, cluttered décor with no sense of place</span>
+        </div>
+        <div class="diff-point">
+          <span class="diff-icon">✗</span>
+          <span class="diff-text">Long queues, slow service, no pre-order option</span>
+        </div>
+      </div>
+
+      <div class="diff-col ours">
+        <div class="diff-col-title">Haldi</div>
+        <div class="diff-point">
+          <span class="diff-icon">✓</span>
+          <span class="diff-text">Freshly made each morning, served at their best</span>
+        </div>
+        <div class="diff-point">
+          <span class="diff-icon">✓</span>
+          <span class="diff-text">Every spice blend ground in-house that same day</span>
+        </div>
+        <div class="diff-point">
+          <span class="diff-icon">✓</span>
+          <span class="diff-text">Balanced, regional recipes — bold flavour, lighter touch</span>
+        </div>
+        <div class="diff-point">
+          <span class="diff-icon">✓</span>
+          <span class="diff-text">Daily rotating menu drawing from across India's regions</span>
+        </div>
+        <div class="diff-point">
+          <span class="diff-icon">✓</span>
+          <span class="diff-text">Clean Nordic-meets-Indian space you'll actually enjoy sitting in</span>
+        </div>
+        <div class="diff-point">
+          <span class="diff-icon">✓</span>
+          <span class="diff-text">In-and-out in under 5 minutes, or pre-order ahead</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAMPLE MENU -->
+<section class="menu-section" id="menu">
+  <div class="section-inner">
+    <span class="section-label">Sample weekly menu</span>
+    <h2 class="section-title">A week at Haldi.<br>No two days the same.</h2>
+    <p class="section-sub">Every day draws from a different Indian regional tradition. Here's a taste of what a typical week looks like — the actual menu changes daily and is published each morning.</p>
+
+    <div class="menu-grid">
+      <div class="menu-day">
+        <div class="menu-day-header">
+          <span class="menu-day-name">Monday</span>
+          <span class="menu-day-region">Punjab</span>
+        </div>
+        <div class="menu-dish"><div class="menu-dish-dot"></div><span class="menu-dish-name">Butter Chicken</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Dal Makhani</span><span class="menu-dish-v">VEG</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Palak Paneer</span><span class="menu-dish-v">VEG</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Jeera Rice &amp; Tandoori Roti</span><span class="menu-dish-v">VEG</span></div>
+      </div>
+
+      <div class="menu-day">
+        <div class="menu-day-header">
+          <span class="menu-day-name">Tuesday</span>
+          <span class="menu-day-region">Tamil Nadu</span>
+        </div>
+        <div class="menu-dish"><div class="menu-dish-dot"></div><span class="menu-dish-name">Chettinad Chicken</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Sambar &amp; Coconut Chutney</span><span class="menu-dish-v">VEG</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Poriyal (dry vegetable stir-fry)</span><span class="menu-dish-v">VEG</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Steamed Rice &amp; Rasam</span><span class="menu-dish-v">VEG</span></div>
+      </div>
+
+      <div class="menu-day">
+        <div class="menu-day-header">
+          <span class="menu-day-name">Wednesday</span>
+          <span class="menu-day-region">Maharashtra</span>
+        </div>
+        <div class="menu-dish"><div class="menu-dish-dot"></div><span class="menu-dish-name">Kolhapuri Lamb</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Misal Pav</span><span class="menu-dish-v">VEG</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Bharli Vangi (stuffed aubergine)</span><span class="menu-dish-v">VEG</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Jowar Bhakri &amp; Rice</span><span class="menu-dish-v">VEG</span></div>
+      </div>
+
+      <div class="menu-day">
+        <div class="menu-day-header">
+          <span class="menu-day-name">Thursday</span>
+          <span class="menu-day-region">Kerala</span>
+        </div>
+        <div class="menu-dish"><div class="menu-dish-dot"></div><span class="menu-dish-name">Kerala Fish Curry</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Avial (coconut &amp; vegetable)</span><span class="menu-dish-v">VEG</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Thoran (stir-fried coconut greens)</span><span class="menu-dish-v">VEG</span></div>
+        <div class="menu-dish"><div class="menu-dish-dot veg"></div><span class="menu-dish-name">Red Rice &amp; Papadam</span><span class="menu-dish-v">VEG</span></div>
+      </div>
+    </div>
+
+    <p class="menu-note">
+      🌶 Spice levels always labelled. Allergens always listed. Every dish available with rice or bread. <br>
+      Follow us on social for the daily menu — posted each morning by 9:00.
+    </p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-inner">
+    <span class="section-label">How it works</span>
+    <h2 class="section-title">Your lunch break, optimised.</h2>
+    <p class="section-sub">Haldi is designed from the ground up for working people. Fast without sacrificing any of the quality.</p>
+
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Check today's menu</div>
+        <p class="step-desc">Menu posted by 9am every morning. Check on our website, app, or Instagram — always fresh, always clearly described.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Pre-order or walk in</div>
+        <p class="step-desc">Use the app to pre-order and skip the queue entirely, or simply walk in — we're ready for the rush with fast counter service.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Pay your way</div>
+        <p class="step-desc">Pay with Edenred, ePassi, card, or cash. Meal benefit cards fully accepted — no complicated process, no extra steps.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Eat something excellent</div>
+        <p class="step-desc">Fresh food on your tray within 5 minutes of arrival. Eat in our welcoming space or take away — always at its best.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEAL BENEFITS -->
+<section class="benefits-section">
+  <div class="benefits-inner">
+    <span class="section-label" style="color: var(--gold-light); text-align: center; display: block;">Meal benefits</span>
+    <h2 class="section-title">Your lounas benefit works here.</h2>
+    <p class="section-sub">Haldi is fully set up for all major Finnish meal benefit systems. Use your employer benefit exactly as you would anywhere else — no hassle.</p>
+    <div class="benefit-cards">
+      <div class="benefit-card">
+        <div class="benefit-card-name">Edenred</div>
+        <div class="benefit-card-note">Accepted ✓</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card-name">ePassi</div>
+        <div class="benefit-card-note">Accepted ✓</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card-name">Smartum</div>
+        <div class="benefit-card-note">Accepted ✓</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card-name">Visa / MC</div>
+        <div class="benefit-card-note">Always ✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="section-inner">
+    <span class="section-label">FAQ</span>
+    <h2 class="section-title">Questions we hear often.</h2>
+    <p class="section-sub">Straightforward answers to the things people actually want to know before trying somewhere new for lunch.</p>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">Is this a buffet?</div>
+        <p class="faq-a">No. Haldi is a counter-service restaurant with a curated daily menu — not a buffet. Each dish is made fresh that morning and served properly. We've found this is the only way to consistently serve food at the level we want.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How spicy is the food?</div>
+        <p class="faq-a">Every dish is clearly labelled with its spice level. We cook to authentic flavour profiles, not watered-down versions — but we always offer milder and hotter variants where possible, and staff can always advise.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is there always something for vegetarians?</div>
+        <p class="faq-a">Always — at least half the daily menu is vegetarian or vegan, every day without exception. Indian cuisine has one of the world's richest plant-based traditions, and we take that seriously. Vegetarians will never feel like an afterthought here.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What are the opening hours?</div>
+        <p class="faq-a">We're focused on lunch — open Monday to Friday, 10:30am to 2:30pm. We're specifically designed for the Helsinki office lunch rush, so that window covers you completely. Hours will be confirmed closer to opening.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How much does it cost?</div>
+        <p class="faq-a">A full lunch — main dish, sides, bread or rice, and a drink — is priced between €11 and €14, in line with Helsinki's standard lounas pricing. Meal benefit cards are fully accepted, so most office workers will pay nothing out of pocket.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Are allergens listed?</div>
+        <p class="faq-a">Yes, all allergens are clearly listed for every dish, every day. Common allergens including gluten, dairy, and nuts are flagged prominently. If you have specific dietary needs, our staff are always happy to help you choose.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I pre-order to avoid queuing?</div>
+        <p class="faq-a">Yes — pre-ordering via our app will be available from day one. You'll be able to browse the day's menu, order ahead, and pick up with zero wait time. Details on the app will be shared with everyone on our notification list first.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Where exactly in Helsinki will Haldi be?</div>
+        <p class="faq-a">We're finalising our location and will announce it to our notification list before any public announcement. Sign up below to be among the first to find out — and to get early access to opening week offers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / NOTIFY -->
+<section class="cta-section" id="notify">
+  <div class="cta-inner">
+    <span class="section-label" style="display:block; text-align:center;">Opening soon in Helsinki</span>
+    <h2 class="section-title">Be first through<br>the door.</h2>
+    <p>We're opening soon. Sign up to be the first to know — location reveal, opening date, early access to the pre-order app, and a little something special for our first week guests.</p>
+
+    <form class="email-form">
+      <input type="email" placeholder="your.name@company.fi" required>
+      <button type="submit">Notify me</button>
+    </form>
+    <p class="cta-note">No spam. Just a single email when we're open. Promise.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <span class="footer-logo">Haldi</span>
+      <span class="footer-tagline">Indian lunch, done right.</span>
+      <p style="margin-top: 0.75rem; font-size: 0.8rem; max-width: 280px; line-height: 1.6;">Opening in Helsinki. Freshly ground spices. Regional Indian recipes. Lounas prices. Every weekday.</p>
+    </div>
+    <div>
+      <p style="color: rgba(255,255,255,0.35); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">Find us</p>
+      <div class="footer-links" style="flex-direction: column; gap: 0.6rem;">
+        <a href="#why">Why Haldi</a>
+        <a href="#menu">Sample Menu</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a href="#notify">Get notified</a>
+      </div>
+    </div>
+    <div>
+      <p style="color: rgba(255,255,255,0.35); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">We accept</p>
+      <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <span style="color: rgba(255,255,255,0.55); font-size: 0.82rem;">✓ Edenred</span>
+        <span style="color: rgba(255,255,255,0.55); font-size: 0.82rem;">✓ ePassi</span>
+        <span style="color: rgba(255,255,255,0.55); font-size: 0.82rem;">✓ Smartum</span>
+        <span style="color: rgba(255,255,255,0.55); font-size: 0.82rem;">✓ Visa / Mastercard</span>
+        <span style="color: rgba(255,255,255,0.55); font-size: 0.82rem;">✓ Cash</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© <span class="year"></span> Haldi. All rights reserved.</span>
+    <span>Powered by <a href="https://madmantra.com" target="_blank" rel="noopener">MadMantra</a></span>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = form.querySelector('input[type="email"]').value;
+      fetch('https://api.madmantra.app/api/landing/haldi/signup', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email: email})
+      }).then(function() {
+        form.innerHTML = '<p style="padding:12px;color:green;font-weight:600">Thanks! We will be in touch.</p>';
+      });
+    });
+  });
+</script>
+
+<script>
+  document.querySelectorAll('.year').forEach(e => e.textContent = new Date().getFullYear());
+</script>
+
+</body>
+</html>
